@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "CCurl",
-        "repositoryURL": "https://github.com/IBM-Swift/CCurl.git",
-        "state": {
-          "branch": null,
-          "revision": "2fbf646b215b87bc8b94409e5c171c585c5f940b",
-          "version": "0.4.0"
-        }
-      },
-      {
         "package": "CHTTPParser",
         "repositoryURL": "https://github.com/IBM-Swift/CHTTPParser.git",
         "state": {
@@ -26,42 +17,6 @@
           "branch": null,
           "revision": "23ddb296981d17a8ee6c7418742a40cad5d2f9d0",
           "version": "1.0.0"
-        }
-      },
-      {
-        "package": "Kitura-net",
-        "repositoryURL": "https://github.com/bytethenoodle/Kitura-net.git",
-        "state": {
-          "branch": null,
-          "revision": "03af0ffa166e3f1a076dc8f873ba24dbbc891617",
-          "version": "1.7.14"
-        }
-      },
-      {
-        "package": "LoggerAPI",
-        "repositoryURL": "https://github.com/IBM-Swift/LoggerAPI.git",
-        "state": {
-          "branch": null,
-          "revision": "51bca3a997a299ab7291c62bf91ec9c8e299f42a",
-          "version": "1.7.0"
-        }
-      },
-      {
-        "package": "SSLService",
-        "repositoryURL": "https://github.com/IBM-Swift/BlueSSLService.git",
-        "state": {
-          "branch": null,
-          "revision": "78e19eb4137ca98c13cea1539c8144908a906d17",
-          "version": "0.12.45"
-        }
-      },
-      {
-        "package": "Socket",
-        "repositoryURL": "https://github.com/IBM-Swift/BlueSocket.git",
-        "state": {
-          "branch": null,
-          "revision": "007fa4078475bf410d75bc1871487f64872e7c78",
-          "version": "0.12.56"
         }
       }
     ]
