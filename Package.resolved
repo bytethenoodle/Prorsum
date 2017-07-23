@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CHTTPParser",
+        "repositoryURL": "https://github.com/IBM-Swift/CHTTPParser.git",
+        "state": {
+          "branch": null,
+          "revision": "0670b002b3c19b245582dc47d60a00bd5830ad24",
+          "version": "0.5.0"
+        }
+      },
+      {
+        "package": "CLibreSSL",
+        "repositoryURL": "https://github.com/vapor/clibressl.git",
+        "state": {
+          "branch": null,
+          "revision": "23ddb296981d17a8ee6c7418742a40cad5d2f9d0",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
