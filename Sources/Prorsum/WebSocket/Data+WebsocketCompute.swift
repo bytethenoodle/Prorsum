@@ -63,7 +63,7 @@ extension Data {
         let slice = self[offset..<offset+size]
         var result: UIntMax = 0
         for (idx, byte) in slice.enumerated() {
-            let shiftAmount = UIntMax(size.toIntMax() - idx - 1) * 8
+            let shiftAmount = UIntMax(size.toIntMax() - Int64(idx) - Int64(1)) * UInt64(8)
             result += UIntMax(byte) << shiftAmount
         }
         return result

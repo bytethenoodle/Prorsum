@@ -66,10 +66,9 @@ public class Cond {
         gettimeofday(&tv, nil)
         ts.tv_sec = time(nil) + ms / 1000
         let tmp = 1000 * 1000 * (ms % 1000)
-        ts.tv_nsec = Int(tv.tv_usec * 1000 + tmp)
+        ts.tv_nsec = Int(Int(tv.tv_usec) * 1000 + tmp)
         ts.tv_sec += ts.tv_nsec / 1000000000
         ts.tv_nsec %= 1000000000
-        
         return pthread_cond_timedwait(&cond, &mutex.mutex, &ts) == 0
     }
     
