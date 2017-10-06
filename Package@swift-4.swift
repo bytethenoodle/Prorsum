@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "Prorsum", targets: ["Prorsum"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Zewo/CHTTPParser.git", .exact("0.14.0")),
+        .package(url: "https://github.com/IBM-Swift/CHTTPParser.git", .exact("0.5.1")),
         .package(url: "https://github.com/vapor/clibressl.git", .upToNextMajor(from: "1.0.0"))
     ],
     targets: [
