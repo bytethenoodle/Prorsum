@@ -28,11 +28,11 @@ extension String {
     }
     
     public func capitalizedWord() -> String {
-        return String(self.characters.prefix(1)).uppercased() + String(self.characters.dropFirst()).lowercased()
+        return String(self.prefix(1)).uppercased() + String(self.dropFirst()).lowercased()
     }
     
     public func split(separator: Character, maxSplits: Int = .max, omittingEmptySubsequences: Bool = true) -> [String] {
-        return characters.split(separator: separator, maxSplits: maxSplits, omittingEmptySubsequences: omittingEmptySubsequences).map(String.init)
+        return self.split(separator: separator, maxSplits: maxSplits, omittingEmptySubsequences: omittingEmptySubsequences)
     }
     
     public func trim() -> String {
@@ -45,21 +45,18 @@ extension String {
     
     public func trimLeft(_ characterSet: Characters) -> String {
         var start = 0
-        
-        for (index, character) in characters.enumerated() {
+        for (index, character) in self.enumerated() {
             if !characterSet.contains(character: character) {
                 start = index
                 break
             }
         }
-        
         return String(self[index(startIndex, offsetBy: start) ..< endIndex])
     }
     
     public func trimRight(_ characterSet: Characters) -> String {
         var end = 0
-        
-        for (index, character) in characters.reversed().enumerated() {
+        for (index, character) in self.reversed().enumerated() {
             if !characterSet.contains(character: character) {
                 end = index
                 break
@@ -69,8 +66,8 @@ extension String {
         return String(self[startIndex ..< index(endIndex, offsetBy: -end)])
     }
     
-    public func index(of string: String) -> String.CharacterView.Index? {
-        return characters.index(of: string.characters)
+    public func index(of string: String) -> String.Index? {
+        return self.index(of: string)
     }
     
     public func contains(substring: String) -> Bool {
@@ -81,31 +78,11 @@ extension String {
 
 extension String {
     public func has(prefix: String) -> Bool {
-        return prefix == String(self.characters.prefix(prefix.characters.count))
+        return prefix == String(self.prefix(prefix.count))
     }
     
     public func has(suffix: String) -> Bool {
-        return suffix == String(self.characters.suffix(suffix.characters.count))
-    }
-}
-
-
-extension String.CharacterView {
-    func index(of sequence: String.CharacterView) -> String.CharacterView.Index? {
-        let seqString = String(sequence)
-        for (i, _) in enumerated() {
-            // Protect against range overflow errors
-            if i + sequence.count > count {
-                break
-            } else {
-                let start = index(startIndex, offsetBy: i)
-                let end = index(startIndex, offsetBy: i+sequence.count)
-                if String(self[start ..< end]) == seqString {
-                    return start
-                }
-            }
-        }
-        return nil
+        return suffix == String(self.suffix(suffix.count))
     }
 }
 
@@ -157,10 +134,9 @@ public struct Characters : ExpressibleByArrayLiteral {
     }
 }
 
-extension String.CharacterView {
+extension String {
     func character(at i: Index, offsetBy offset: Int) -> Character? {
-        var i = i
-        if !formIndex(&i, offsetBy: offset, limitedBy: index(before: self.endIndex)) {
+        if (i.encodedOffset + offset) > (self.count - 1) {
             return nil
         }
         return self[i]
@@ -169,22 +145,21 @@ extension String.CharacterView {
 
 extension String {
     public init(percentEncoded: String) throws {
-        let characters = percentEncoded.characters
         var decoded = ""
-        var index = characters.startIndex
+        var index = percentEncoded.startIndex
         
-        while index < characters.endIndex {
-            let character = characters[index]
+        while index < percentEncoded.endIndex {
+            let character = percentEncoded[index]
             
             switch character {
             case "%":
                 var encoded: [UInt8] = []
                 
                 while true {
-                    guard let unicodeA = characters.character(at: index, offsetBy: 1) else {
+                    guard let unicodeA = percentEncoded.character(at: index, offsetBy: 1) else {
                         throw StringError.invalidString
                     }
-                    guard let unicodeB = characters.character(at: index, offsetBy: 2) else {
+                    guard let unicodeB = percentEncoded.character(at: index, offsetBy: 2) else {
                         throw StringError.invalidString
                     }
                     
@@ -195,9 +170,9 @@ extension String {
                     }
                     
                     encoded.append(unicodeScalar)
-                    characters.formIndex(&index, offsetBy: 3)
+                    percentEncoded.formIndex(&index, offsetBy: 3)
                     
-                    if index == characters.endIndex || characters[index] != "%" {
+                    if index == percentEncoded.endIndex || percentEncoded[index] != "%" {
                         break
                     }
                 }
@@ -206,11 +181,11 @@ extension String {
                 
             case "+":
                 decoded.append(" ")
-                characters.formIndex(after: &index)
+                percentEncoded.formIndex(after: &index)
                 
             default:
                 decoded.append(character)
-                characters.formIndex(after: &index)
+                percentEncoded.formIndex(after: &index)
             }
         }
         
